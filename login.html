@@ -19,20 +19,43 @@
                <article class="fondo">
                    <img src="img/escribano.jpg" alt="User">
                    <h3>Inicio de sesión</h3>
-                   <form class="" action="">
-                        
-                        <input class="inp" type="text" placeholder="&#128394 Username" name="usuario">
-                        <input class="inp" type="password" placeholder="&#128273 Password" name="clave">
-                        <a href=""class="he">He olvidado mi contraseña</a>
-                        <input class="boton" type="submit" name="inicio" value="Iniciar sesión">
 
+                   <form name="loginform" onSubmit="return validateForm();" action="main.html" method="post">
+                        <label>User name</label>
                         
+                        <input class="inp" type="text" placeholder="&#128394 2Username" name="usr">
+                        <input class="inp" type="password" placeholder="&#128273 Password" name="psw">
+
+                        <a href=""class="he">He olvidado mi contraseña</a>
+                        <input class="boton" type="submit" name="inicio" value="Iniciar sesión"/>
 
                    </form>
+                   
+
                </article>
            </div>
 
        </div>
+       <script>
+           function validateForm(){
+            console.log("enter");
+
+            var un = document.loginform.usr.value;
+            var pw = document.loginform.psw.value;
+
+            var username = "a"; 
+            var password = "a";
+
+            if ((un == username) && (pw == password)) {
+                return true;
+            }
+            else {
+                alert ("Login was unsuccessful, please check your username and password");
+                return false;
+            }
+
+           }
+        </script>
         
         
     </body>
