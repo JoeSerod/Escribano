@@ -47,10 +47,13 @@
             var password = "a";
             
             if ((un == username) && (pw == password)) {
+                location.href='index.html';
                 return true;
+
             }
             else {
                 alert ("Login was unsuccessful, please check your username and password");
+                location.href='login.html';
                 return false;
             }
 
