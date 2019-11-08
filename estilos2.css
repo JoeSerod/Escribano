@@ -14,6 +14,8 @@
     height: 100%;
 }
 
+
+
 header{
     width: 100%;
     color: white;
@@ -65,7 +67,7 @@ header a :hover{
     border-radius: 5px;
 }
 .fondo img{
-    margin-top: -75px;
+    margin-top: -55px;
     margin-bottom: 40px;
     width: 25%;
     border-radius: 50%;
