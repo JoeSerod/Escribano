@@ -19,7 +19,6 @@
                <article class="fondo">
                    <img src="img/escribano.jpg" alt="User">
                    <h3>Inicio de sesión</h3>
-
                    <form name="loginform" onSubmit="return validateForm();" action="index.html" method="post">
                         <label>User name</label>
                         
@@ -30,6 +29,8 @@
                         <input class="boton" type="submit" name="inicio" value="Iniciar sesión"/>
 
                    </form>
+
+                   <input id="clickMe" type="button" value="clickme" onclick="test2();" />
                    
 
                </article>
@@ -37,24 +38,68 @@
 
        </div>
        <script>
-           function validateForm(){
-            console.log("enter");
+        const url = 'http://localhost:52336/api/users';
+        const url2 = 'https://randomuser.me/api/?results=10';
 
-            var un = document.loginform.usr.value;
-            var pw = document.loginform.psw.value;
-
-            var username = "a"; 
-            var password = "a";
+        function test2(){
             
-            if ((un == username) && (pw == password)) {
-                return true;
-            }
-            else {
-                alert ("Login was unsuccessful, please check your username and password");
-                return false;
-            }
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data) {
+                
+                console.log(data)
+            })
+            .catch(function(error) {
+                console.log(error);
+            });   
 
-           }
+
+            /*fetch( url2, {mode: 'no-cors'} )
+            .then((resp) => resp.json())
+            .then(function(json) {
+                // use the json
+            })
+            .catch( e => console.error( 'Something went wrong'+e) );
+
+ */
+              
+        }
+
+        function test(){
+            console.log(';')
+            
+            fetch(url, {mode: 'no-cors'})
+            .then(res => res.json())
+            .then(data => {
+                // code to handle the response
+                data.forEach(user => {
+                    // Log each movie's title
+                    console.log(user.LoginName)
+                    console.log('////')
+                })
+            })
+        }
+                
+        // ******************************************************************************** //
+        function validateForm() {
+        console.log("enter");
+
+        var un = document.loginform.usr.value;
+        var pw = document.loginform.psw.value;
+
+        var username = "a"; 
+        var password = "a";
+        
+        if ((un == username) && (pw == password)) {
+            return true;
+        }
+        else {
+            alert ("Login was unsuccessful, please check your username and password");
+            return false;
+        }
+        }
+
+        // ******************************************************************************** //
         </script>
         
         
