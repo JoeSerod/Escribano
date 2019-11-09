@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="estilos2.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Montez|Pathway+Gothic+One" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="img/escribano.ico">
-    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
        <div class="contenedor">
@@ -29,74 +29,42 @@
                         <input class="boton" type="submit" name="inicio" value="Iniciar sesión"/>
 
                    </form>
-
-                   <input id="clickMe" type="button" value="clickme" onclick="test2();" />
-                   
-
                </article>
            </div>
-
-       </div>
+        </div>
+       
        <script>
         const url = 'http://localhost:52336/api/users';
         const url2 = 'https://randomuser.me/api/?results=10';
 
-        function test2(){
-            
+        function getUsers(un,pw){
             fetch(url)
             .then((resp) => resp.json())
             .then(function(data) {
-                
                 console.log(data)
+                if(data.some(item => item.LoginName === un)){
+                    if(data.some(item => item.Password === pw)){
+                        sessionStorage.setItem('status','loggedIn') 
+                        location.href ='index.html';
+                    }else{
+                        alert("Contraseña incorrecta");
+                    }
+                }else
+                {
+                    alert("Usuario incorrecto");
+                }
+                return data;
             })
             .catch(function(error) {
                 console.log(error);
             });   
-
-
-            /*fetch( url2, {mode: 'no-cors'} )
-            .then((resp) => resp.json())
-            .then(function(json) {
-                // use the json
-            })
-            .catch( e => console.error( 'Something went wrong'+e) );
-
- */
-              
-        }
-
-        function test(){
-            console.log(';')
-            
-            fetch(url, {mode: 'no-cors'})
-            .then(res => res.json())
-            .then(data => {
-                // code to handle the response
-                data.forEach(user => {
-                    // Log each movie's title
-                    console.log(user.LoginName)
-                    console.log('////')
-                })
-            })
-        }
-                
+        }       
         // ******************************************************************************** //
         function validateForm() {
-        console.log("enter");
-
-        var un = document.loginform.usr.value;
-        var pw = document.loginform.psw.value;
-
-        var username = "a"; 
-        var password = "a";
-        
-        if ((un == username) && (pw == password)) {
-            return true;
-        }
-        else {
-            alert ("Login was unsuccessful, please check your username and password");
+            var un = document.loginform.usr.value;
+            var pw = document.loginform.psw.value;
+            getUsers(un,pw);
             return false;
-        }
         }
 
         // ******************************************************************************** //

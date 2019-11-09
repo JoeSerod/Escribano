@@ -9,7 +9,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/escribano.ico">
     
     </head>
-    <body>
+    <body onload="func()">
        <div class="contenedor">
            <header>
                <h1 class="title">Escribano</h1>
@@ -19,24 +19,30 @@
                <article class="fondo">
                    <img src="img/escribano.jpg" alt="User">
                    <h3>Opciones de pago</h3>
-
-                   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="PPC9MDY79UWMJ">
-                    <table>
-                    <tr><td><input type="hidden" name="on0" value=""></td></tr><tr><td><select name="os0">
-                        <option value="1 semana">1 semana : $10.00 MXN - semanal</option>
-                        <option value="1 mes">1 mes : $999.00 MXN - mensual</option>
-                        <option value="1 año">1 año : $10,000.00 MXN - anual</option>
-                    </select> </td></tr>
-                    </table>
-                    <input type="hidden" name="currency_code" value="MXN">
-                    <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_subscribe_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-                    </form>
-                    
-                   
-
+                   <div id="pago" style="visibility: hidden">                    
+                    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                        <input type="hidden" name="cmd" value="_s-xclick">
+                        <input type="hidden" name="hosted_button_id" value="PPC9MDY79UWMJ">
+                        <table>
+                        <tr><td><input type="hidden" name="on0" value=""></td></tr><tr><td><select name="os0">
+                            <option value="1 semana">1 semana : $10.00 MXN - semanal</option>
+                            <option value="1 mes">1 mes : $999.00 MXN - mensual</option>
+                            <option value="1 año">1 año : $10,000.00 MXN - anual</option>
+                        </select> </td></tr>
+                        </table>
+                        <input type="hidden" name="currency_code" value="MXN">
+                        <input type="image" src="https://www.paypalobjects.com/es_XC/i/btn/btn_subscribe_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
+                        <img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
+                        </form>
+                   </div>
+                   <div id="sesion" style="visibility: hidden" style="text-align:justify">
+                        <h3 style="text-align:justify; font-size: x-large">Para agregar una opción de pago debes iniciar sesión</h3>
+                        <div style="text-align:center">
+                            <a href="login.html" id="loginbutton">Inicia Sesión</a>
+                            <a href="formulario.html" id="register">Registrate</a>
+                        </div>
+                        
+                   </div>
                </article>
            </div>
 
@@ -59,6 +65,17 @@
                 return false;
             }
 
+           }
+
+           function func(){
+                if (sessionStorage.getItem('status') != null){
+                    document.getElementById("pago").style.visibility = "visible";
+                    document.getElementById("sesion").style.visibility = "hidden";
+                }
+                else{
+                    document.getElementById("pago").style.visibility = "hidden";
+                    document.getElementById("sesion").style.visibility = "visible";
+                }
            }
         </script>
         
