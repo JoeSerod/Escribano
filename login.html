@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="estilos2.css">
         <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Montez|Pathway+Gothic+One" rel="stylesheet">
         <link rel="shortcut icon" type="image/x-icon" href="img/escribano.ico">
-    
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>
     <body>
        <div class="contenedor">
@@ -20,6 +20,7 @@
                    <img src="img/escribano.jpg" alt="User">
                    <h3>Inicio de sesión</h3>
 
+                   <form name="loginform" onSubmit="return validateForm();" action="index.html" method="post">
                    <form name="loginform" onSubmit="return validateForm();" action="active.html" method="post">
                         <label>User name</label>
                         
@@ -30,37 +31,44 @@
                         <input class="boton" type="submit" name="inicio" value="Iniciar sesión"/>
 
                    </form>
-                   
-
                </article>
            </div>
-
-       </div>
+        </div>
+       
        <script>
-           function validateForm(){
-            console.log("enter");
+        const url = 'http://localhost:52336/api/users';
+        const url2 = 'https://randomuser.me/api/?results=10';
 
+        function getUsers(un,pw){
+            fetch(url)
+            .then((resp) => resp.json())
+            .then(function(data) {
+                console.log(data)
+                if(data.some(item => item.LoginName === un)){
+                    if(data.some(item => item.Password === pw)){
+                        sessionStorage.setItem('status','loggedIn') 
+                        location.href ='index.html';
+                    }else{
+                        alert("Contraseña incorrecta");
+                    }
+                }else
+                {
+                    alert("Usuario incorrecto");
+                }
+                return data;
+            })
+            .catch(function(error) {
+                console.log(error);
+            });   
+        }       
+        // ******************************************************************************** //
+        function validateForm() {
             var un = document.loginform.usr.value;
             var pw = document.loginform.psw.value;
+            getUsers(un,pw);
+            return false;
+        }
 
-            var username = "a"; 
-            var password = "a";
-            var estado = 0;
-            
-            if ((un == username) && (pw == password)) {
-                location.href='formulario.html';
-               
-                return true;
-
-            }
-            else {
-                alert ("CONTRASEÑA INCRORRECTA, POR FAVOR REVISE SUS DATOS");
-                location.href='login.html';
-                estado=0;
-                return false;
-            }
-
-           }
         </script>
         
         
